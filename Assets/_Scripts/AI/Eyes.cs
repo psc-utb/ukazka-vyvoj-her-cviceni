@@ -5,6 +5,8 @@ public class Eyes : MonoBehaviour
 {
     [SerializeField]
     GameObject player;
+    [SerializeField]
+    Transform playerHeadPosition;
 
     ConeCollider coneCollider;
 
@@ -21,14 +23,14 @@ public class Eyes : MonoBehaviour
         if (other.gameObject == player)
         {
             Vector3 position = transform.position;
-            Vector3 positionPlayer = player.transform.position;
+            Vector3 positionPlayer = playerHeadPosition.transform.position;
             //positionPlayer.y = positionPlayer.y + 2;
             Vector3 direction = (positionPlayer - position).normalized;
 
             Ray ray = new Ray(position, direction);
             RaycastHit hit;
-            Physics.Raycast(ray, out hit, coneCollider.Distance);
-            Debug.DrawRay(position, direction * coneCollider.Distance, Color.blue);
+            Physics.Raycast(ray, out hit, coneCollider.Distance, ~(LayerMask.GetMask("Eyes")));
+            Debug.DrawRay(position, direction * coneCollider.Distance, Color.yellow);
 
             if (hit.collider?.gameObject == player)
             {
