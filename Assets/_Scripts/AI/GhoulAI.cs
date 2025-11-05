@@ -19,6 +19,9 @@ public class GhoulAI : MonoBehaviour
     {
         AttackSMB attack = animator.GetBehaviour<AttackSMB>();
         attack.Hands = hands;
+
+        RunSMB runSMB = animator.GetBehaviour<RunSMB>();
+        runSMB.PlayerTransform = player.transform;
     }
 
     // Update is called once per frame
